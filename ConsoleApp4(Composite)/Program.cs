@@ -1,8 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ConsoleApp4_Composite_
 {
+
+    class EmployeeException : Exception
+    {
+        public override string Message
+        {
+            get
+            {
+                return "Больше не возможно добавить сотрудников";
+            }
+        }
+    }
+
     abstract class Employee
     {
         public string Name { get; set; }
@@ -15,7 +30,7 @@ namespace ConsoleApp4_Composite_
     {
         public List<Employee> Employees { get; set; } = new List<Employee>();
 
-        //testetst
+     
         public override void AddSubordinate(Employee employee)
         {
 
@@ -29,7 +44,7 @@ namespace ConsoleApp4_Composite_
 
         public override void Display()
         {
-
+            Console.WriteLine(Employees.Count());
             Console.WriteLine(Name);
             foreach (var item in Employees)
             {
@@ -60,6 +75,10 @@ namespace ConsoleApp4_Composite_
         public override void Display()
         {
 
+            if (Clerk.Count() > 3)
+            {
+                throw new EmployeeException();
+            }
             Console.WriteLine(Name);
             foreach (var item in Clerks)
             {
@@ -67,6 +86,8 @@ namespace ConsoleApp4_Composite_
                 item.Display();
             }
         }
+
+       
     }
 
 
@@ -88,6 +109,11 @@ namespace ConsoleApp4_Composite_
 
         public override void Display()
         {
+            if (IT_specialist.Count() > 4)
+            {
+                throw new EmployeeException();
+            }
+
             Console.WriteLine(Name);
             foreach (var item in IT_specialists)
             {
